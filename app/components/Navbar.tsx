@@ -11,10 +11,10 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 glass-effect"
+      className="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-lg border-b border-gray-800"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-2">
           {/* Left side - Logo/Name */}
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -43,7 +43,7 @@ const Navbar = () => {
               <Link href="/about-me">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/20 hover:border-white/40 transition-colors shadow-lg">
                   <Image
-                    src="/profile-picture.jpg"
+                    src="/project-images/image.jpg"
                     alt="Vaibhav's Profile Picture"
                     fill
                     className="object-cover"

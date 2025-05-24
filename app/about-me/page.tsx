@@ -103,7 +103,7 @@ export default function AboutMePage() {
             <div className="about-hero-image relative">
               <div className="relative w-80 h-80 mx-auto rounded-full overflow-hidden shadow-2xl border-8 border-white dark:border-gray-800">
                 <Image
-                  src="/profile-picture.jpg"
+                  src="/project-images/image.jpg"
                   alt="Vaibhav's Profile Picture"
                   fill
                   className="object-cover"

@@ -45,6 +45,12 @@ body {
   transition: background-color 0.5s ease, color 0.3s ease;
 }
 
+/* Override for dark theme */
+.dark-theme {
+  background: #030712 !important;
+  color: #f9fafb !important;
+}
+
 /* Custom utility classes */
 @layer utilities {
   .text-balance {

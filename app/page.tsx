@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "./components/Navbar";
@@ -13,32 +12,33 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// Project categories with counts
+const categories = [
+  { name: "All", count: projectsData.length },
+  { name: "Web Apps", count: 3 },
+  { name: "Mobile", count: 1 },
+  { name: "Dashboard", count: 1 },
+  { name: "E-commerce", count: 1 },
+];
+
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const projectsSectionRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
 
   useEffect(() => {
-    const hero = heroRef.current;
-    const projectsSection = projectsSectionRef.current;
-
-    if (!hero || !projectsSection) return;
-
     // Hero section animations
     const tl = gsap.timeline();
 
     tl.fromTo(
       ".hero-title",
       {
-        y: 100,
+        y: 60,
         opacity: 0,
-        scale: 0.9,
       },
       {
         y: 0,
         opacity: 1,
-        scale: 1,
         duration: 1.2,
         ease: "power3.out",
       }
@@ -46,7 +46,7 @@ export default function Home() {
       .fromTo(
         ".hero-subtitle",
         {
-          y: 60,
+          y: 40,
           opacity: 0,
         },
         {
@@ -58,9 +58,9 @@ export default function Home() {
         "-=0.6"
       )
       .fromTo(
-        ".hero-description",
+        ".filter-tabs",
         {
-          y: 40,
+          y: 30,
           opacity: 0,
         },
         {
@@ -72,11 +72,11 @@ export default function Home() {
         "-=0.4"
       );
 
-    // Projects section title animation
+    // Projects grid animation
     gsap.fromTo(
-      ".projects-title",
+      ".project-card",
       {
-        y: 50,
+        y: 60,
         opacity: 0,
       },
       {
@@ -84,8 +84,9 @@ export default function Home() {
         opacity: 1,
         duration: 0.8,
         ease: "power2.out",
+        stagger: 0.1,
         scrollTrigger: {
-          trigger: projectsSection,
+          trigger: ".projects-grid",
           start: "top 80%",
           toggleActions: "play none none reverse",
         },
@@ -107,80 +108,82 @@ export default function Home() {
     setTimeout(() => setSelectedProject(null), 300);
   };
 
+  const filteredProjects = projectsData.filter((project) => {
+    if (activeCategory === "All") return true;
+    // You can add more filtering logic based on project categories
+    return project.tags?.includes(activeCategory.toLowerCase());
+  });
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900">
+    <div className="min-h-screen bg-gray-950 text-white">
       <Navbar />
 
       {/* Hero Section */}
-      <section
-        ref={heroRef}
-        className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20"
-      >
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 1.5 }}
-            className="absolute inset-0 -z-10"
-          >
-            {/* Animated background elements */}
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-300/20 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute top-3/4 right-1/4 w-48 h-48 bg-purple-300/20 rounded-full blur-2xl animate-pulse animation-delay-400" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-200/10 to-purple-200/10 rounded-full blur-3xl animate-pulse animation-delay-200" />
-          </motion.div>
-
-          <h1 className="hero-title text-5xl md:text-7xl lg:text-8xl font-bold text-gray-900 dark:text-white mb-6">
-            Welcome to My
-            <span className="block gradient-text">Digital Universe</span>
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto text-center">
+          <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
+            Assorted projects for{" "}
+            <span className="text-gray-400">
+              frontend developers and web designers.
+            </span>
           </h1>
 
-          <p className="hero-subtitle text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto font-medium">
-            Software Engineer & Creative Problem Solver
+          <p className="hero-subtitle text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-16">
+            Explore curated and handpicked projects that showcase modern web
+            development techniques and enhance your understanding of full-stack
+            applications.
           </p>
 
-          <p className="hero-description text-lg text-gray-500 dark:text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Crafting elegant solutions through code, bringing ideas to life with
-            modern web technologies, and building experiences that make a
-            difference.
-          </p>
-
-          {/* Scroll indicator */}
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
-            <div className="w-6 h-10 border-2 border-gray-400 dark:border-gray-600 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-gray-400 dark:bg-gray-600 rounded-full mt-2 animate-pulse" />
-            </div>
-          </motion.div>
+          {/* Filter Tabs */}
+          <div className="filter-tabs flex flex-wrap justify-center gap-4 mb-16">
+            {categories.map((category) => (
+              <button
+                key={category.name}
+                onClick={() => setActiveCategory(category.name)}
+                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  activeCategory === category.name
+                    ? "bg-white text-gray-900"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+              >
+                {category.name}{" "}
+                <span
+                  className={`ml-1 ${
+                    activeCategory === category.name
+                      ? "text-gray-600"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {category.count}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section ref={projectsSectionRef} className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Projects Grid */}
+      <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="projects-title text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Featured Projects
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              A showcase of my recent work, featuring full-stack applications,
-              innovative solutions, and creative implementations.
-            </p>
-          </div>
-
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projectsData.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onCardClick={handleCardClick}
-                index={index}
-              />
+          <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project, index) => (
+              <div key={project.id} className="project-card">
+                <ProjectCard
+                  project={project}
+                  onCardClick={handleCardClick}
+                  index={index}
+                />
+              </div>
             ))}
           </div>
+
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-gray-500 text-lg">
+                No projects found in this category.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
