@@ -1,24 +1,26 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { AnimatePresence, motion } from "framer-motion";
+import { gsap, ScrollTrigger } from "./lib/gsap";
 import Navbar from "./components/Navbar";
 import ProjectCard from "./components/ProjectCard";
 import ProjectDetailModal from "./components/ProjectDetailModal";
 import { projectsData, Project } from "./data/projectsData";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-// Project categories with counts
+// Generate categories dynamically
+const categoryNames = ["Web Apps", "Mobile", "Dashboard", "E-commerce"];
 const categories = [
   { name: "All", count: projectsData.length },
-  { name: "Web Apps", count: 3 },
-  { name: "Mobile", count: 1 },
-  { name: "Dashboard", count: 1 },
-  { name: "E-commerce", count: 1 },
+  ...categoryNames
+    .map((name) => {
+      const lowercaseName = name.toLowerCase();
+      const count = projectsData.filter((p) =>
+        p.tags?.includes(lowercaseName)
+      ).length;
+      return { name, count };
+    })
+    .filter((c) => c.count > 0), // Only show categories with projects
 ];
 
 export default function Home() {
@@ -28,73 +30,36 @@ export default function Home() {
 
   useEffect(() => {
     // Hero section animations
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      defaults: {
+        duration: 1,
+        ease: "power3.out",
+      },
+    });
 
     tl.fromTo(
       ".hero-title",
-      {
-        y: 60,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        ease: "power3.out",
-      }
+      { y: 60, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.2 }
     )
       .fromTo(
         ".hero-subtitle",
-        {
-          y: 40,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-        },
-        "-=0.6"
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1 },
+        "-=0.8"
       )
       .fromTo(
         ".filter-tabs",
-        {
-          y: 30,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power2.out",
-        },
-        "-=0.4"
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        "-=0.6"
       );
 
-    // Projects grid animation
-    gsap.fromTo(
-      ".project-card",
-      {
-        y: 60,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power2.out",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: ".projects-grid",
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
-
+    // Clean up all ScrollTrigger instances on unmount
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) =>
+        trigger.kill()
+      );
     };
   }, []);
 
@@ -110,7 +75,7 @@ export default function Home() {
 
   const filteredProjects = projectsData.filter((project) => {
     if (activeCategory === "All") return true;
-    // You can add more filtering logic based on project categories
+    // This logic assumes tags in `projectsData` are lowercase
     return project.tags?.includes(activeCategory.toLowerCase());
   });
 
@@ -165,17 +130,21 @@ export default function Home() {
       {/* Projects Grid */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
-              <div key={project.id} className="project-card">
+          <motion.div
+            layout
+            className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <AnimatePresence>
+              {filteredProjects.map((project, index) => (
                 <ProjectCard
+                  key={project.id}
                   project={project}
                   onCardClick={handleCardClick}
                   index={index}
                 />
-              </div>
-            ))}
-          </div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-20">

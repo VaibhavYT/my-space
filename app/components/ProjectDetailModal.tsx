@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import { gsap } from "../lib/gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { Project } from "../data/projectsData";

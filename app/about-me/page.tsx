@@ -2,8 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "../lib/gsap";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,10 +13,6 @@ import {
   FiTwitter,
 } from "react-icons/fi";
 import Navbar from "../components/Navbar";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 export default function AboutMePage() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -75,7 +70,9 @@ export default function AboutMePage() {
     );
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) =>
+        trigger.kill()
+      );
     };
   }, []);
 
@@ -95,7 +92,7 @@ export default function AboutMePage() {
           >
             <Link href="/">
               <motion.button
-                whileHover={{ x: -4, color: '#2563eb' }} // Example: blue-600
+                whileHover={{ x: -4, color: "#2563eb" }} // Example: blue-600
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-sky-400 transition-colors duration-300 group"
               >
                 <FiArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
@@ -135,7 +132,10 @@ export default function AboutMePage() {
             {/* About Info */}
             <div className="text-center lg:text-left">
               <h1 className="about-title text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-5 tracking-tight">
-                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Vaibhav</span>
+                About{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                  Vaibhav
+                </span>
               </h1>
 
               <p className="about-subtitle text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">
@@ -144,30 +144,31 @@ export default function AboutMePage() {
 
               {/* Social Links */}
               <div className="about-social-links flex gap-4 justify-center lg:justify-start">
-                {[{
-                  icon: FiGithub,
-                  href: "https://github.com/vaibhav",
-                  label: "GitHub",
-                  color: "hover:text-gray-900 dark:hover:text-white",
-                },
-                {
-                  icon: FiLinkedin,
-                  href: "https://linkedin.com/in/vaibhav",
-                  label: "LinkedIn",
-                  color: "hover:text-blue-700 dark:hover:text-blue-500",
-                },
-                {
-                  icon: FiTwitter,
-                  href: "https://twitter.com/vaibhav",
-                  label: "Twitter",
-                  color: "hover:text-sky-500 dark:hover:text-sky-400",
-                },
-                {
-                  icon: FiMail,
-                  href: "mailto:vaibhav@example.com",
-                  label: "Email",
-                  color: "hover:text-red-600 dark:hover:text-red-500",
-                },
+                {[
+                  {
+                    icon: FiGithub,
+                    href: "https://github.com/vaibhav",
+                    label: "GitHub",
+                    color: "hover:text-gray-900 dark:hover:text-white",
+                  },
+                  {
+                    icon: FiLinkedin,
+                    href: "https://linkedin.com/in/vaibhav",
+                    label: "LinkedIn",
+                    color: "hover:text-blue-700 dark:hover:text-blue-500",
+                  },
+                  {
+                    icon: FiTwitter,
+                    href: "https://twitter.com/vaibhav",
+                    label: "Twitter",
+                    color: "hover:text-sky-500 dark:hover:text-sky-400",
+                  },
+                  {
+                    icon: FiMail,
+                    href: "mailto:vaibhav@example.com",
+                    label: "Email",
+                    color: "hover:text-red-600 dark:hover:text-red-500",
+                  },
                 ].map(({ icon: Icon, href, label, color }) => (
                   <motion.a
                     key={label}
@@ -205,23 +206,24 @@ export default function AboutMePage() {
               transition={{ duration: 0.5 }}
             >
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg mb-6">
-                Hello! I&apos;m Vaibhav, a passionate software engineer with a love
-                for creating digital experiences that make a difference. My
+                Hello! I&apos;m Vaibhav, a passionate software engineer with a
+                love for creating digital experiences that make a difference. My
                 journey in technology began during my computer science studies,
                 where I discovered the power of code to solve real-world
                 problems.
               </p>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg mb-6">
-                Over the years, I&lsquo;ve had the opportunity to work on diverse
-                projects ranging from e-commerce platforms to AI-powered
+                Over the years, I&lsquo;ve had the opportunity to work on
+                diverse projects ranging from e-commerce platforms to AI-powered
                 applications. I believe in writing clean, maintainable code and
                 creating user experiences that are both functional and
                 delightful.
               </p>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
-                When I&lsquo;m not coding, you can find me exploring new technologies,
-                contributing to open-source projects, diving into AI research, or sharing my knowledge
-                with the developer community.
+                When I&lsquo;m not coding, you can find me exploring new
+                technologies, contributing to open-source projects, diving into
+                AI research, or sharing my knowledge with the developer
+                community.
               </p>
             </motion.div>
           </div>
@@ -232,80 +234,81 @@ export default function AboutMePage() {
               Skills & Expertise
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              {[{
-                category: "Frontend",
-                skills: [
-                  "React",
-                  "Next.js",
-                  "TypeScript",
-                  "JavaScript (ESNext)",
-                  "HTML5",
-                  "CSS3 / SASS",
-                  "Tailwind CSS",
-                  "Framer Motion",
-                  "GSAP",
-                ],
-              },
-              {
-                category: "Backend",
-                skills: [
-                  "Node.js",
-                  "Express.js",
-                  "Python",
-                  "FastAPI",
-                  "Django",
-                  "PostgreSQL",
-                  "MongoDB",
-                  "GraphQL",
-                  "REST APIs",
-                ],
-              },
-              {
-                category: "AI & Machine Learning",
-                skills: [
-                  "TensorFlow",
-                  "PyTorch",
-                  "Scikit-learn",
-                  "LangChain & LLMs",
-                  "OpenCV",
-                  "NLP",
-                  "Data Analysis",
-                  "Prompt Engineering",
-                ],
-              },
-              {
-                category: "Tools & Platforms",
-                skills: [
-                  "Git & GitHub",
-                  "Docker",
-                  "Kubernetes",
-                  "AWS",
-                  "Google Cloud (GCP)",
-                  "Vercel",
-                  "Firebase",
-                  "CI/CD Pipelines",
-                ],
-              },
-              {
-                category: "Design & UX",
-                skills: [
-                  "Figma",
-                  "Adobe XD",
-                  "UI/UX Principles",
-                  "Responsive Design",
-                  "Accessibility (A11Y)",
-                  "Prototyping",
-                ],
-              },
-               {
-                category: "Methodologies",
-                skills: [
-                  "Agile & Scrum",
-                  "Test-Driven Development (TDD)",
-                  "Microservices",
-                  "System Design",
-                ],
-              },
+              {[
+                {
+                  category: "Frontend",
+                  skills: [
+                    "React",
+                    "Next.js",
+                    "TypeScript",
+                    "JavaScript (ESNext)",
+                    "HTML5",
+                    "CSS3 / SASS",
+                    "Tailwind CSS",
+                    "Framer Motion",
+                    "GSAP",
+                  ],
+                },
+                {
+                  category: "Backend",
+                  skills: [
+                    "Node.js",
+                    "Express.js",
+                    "Python",
+                    "FastAPI",
+                    "Django",
+                    "PostgreSQL",
+                    "MongoDB",
+                    "GraphQL",
+                    "REST APIs",
+                  ],
+                },
+                {
+                  category: "AI & Machine Learning",
+                  skills: [
+                    "TensorFlow",
+                    "PyTorch",
+                    "Scikit-learn",
+                    "LangChain & LLMs",
+                    "OpenCV",
+                    "NLP",
+                    "Data Analysis",
+                    "Prompt Engineering",
+                  ],
+                },
+                {
+                  category: "Tools & Platforms",
+                  skills: [
+                    "Git & GitHub",
+                    "Docker",
+                    "Kubernetes",
+                    "AWS",
+                    "Google Cloud (GCP)",
+                    "Vercel",
+                    "Firebase",
+                    "CI/CD Pipelines",
+                  ],
+                },
+                {
+                  category: "Design & UX",
+                  skills: [
+                    "Figma",
+                    "Adobe XD",
+                    "UI/UX Principles",
+                    "Responsive Design",
+                    "Accessibility (A11Y)",
+                    "Prototyping",
+                  ],
+                },
+                {
+                  category: "Methodologies",
+                  skills: [
+                    "Agile & Scrum",
+                    "Test-Driven Development (TDD)",
+                    "Microservices",
+                    "System Design",
+                  ],
+                },
               ].map((skillGroup, index) => (
                 <motion.div
                   key={skillGroup.category}
@@ -322,7 +325,10 @@ export default function AboutMePage() {
                     {skillGroup.skills.map((skill) => (
                       <motion.span
                         key={skill}
-                        whileHover={{ scale: 1.05, boxShadow: "0px 2px 8px rgba(0,0,0,0.1)" }}
+                        whileHover={{
+                          scale: 1.05,
+                          boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+                        }}
                         className="px-3 py-1.5 bg-sky-100 dark:bg-sky-700/30 text-sky-700 dark:text-sky-300 text-sm rounded-full font-medium cursor-default transition-all duration-200"
                       >
                         {skill}
@@ -340,27 +346,28 @@ export default function AboutMePage() {
               Experience
             </h2>
             <div className="space-y-8">
-              {[{
-                role: "Senior Frontend Developer",
-                company: "Tech Innovations Inc.",
-                period: "2022 - Present",
-                description:
-                  "Leading frontend development for multiple high-traffic applications using React, Next.js, and modern web technologies.",
-              },
-              {
-                role: "Full-Stack Developer",
-                company: "Digital Solutions Co.",
-                period: "2020 - 2022",
-                description:
-                  "Developed and maintained full-stack applications using MERN stack, implemented CI/CD pipelines, and mentored junior developers.",
-              },
-              {
-                role: "Software Engineer",
-                company: "StartupXYZ",
-                period: "2019 - 2020",
-                description:
-                  "Built scalable web applications from scratch, collaborated with designers to implement pixel-perfect UIs, and optimized application performance.",
-              },
+              {[
+                {
+                  role: "Senior Frontend Developer",
+                  company: "Tech Innovations Inc.",
+                  period: "2022 - Present",
+                  description:
+                    "Leading frontend development for multiple high-traffic applications using React, Next.js, and modern web technologies.",
+                },
+                {
+                  role: "Full-Stack Developer",
+                  company: "Digital Solutions Co.",
+                  period: "2020 - 2022",
+                  description:
+                    "Developed and maintained full-stack applications using MERN stack, implemented CI/CD pipelines, and mentored junior developers.",
+                },
+                {
+                  role: "Software Engineer",
+                  company: "StartupXYZ",
+                  period: "2019 - 2020",
+                  description:
+                    "Built scalable web applications from scratch, collaborated with designers to implement pixel-perfect UIs, and optimized application performance.",
+                },
               ].map((exp, index) => (
                 <motion.div
                   key={index}
@@ -392,25 +399,40 @@ export default function AboutMePage() {
           {/* CTA */}
           <div className="content-section text-center pt-10">
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white mb-6 tracking-tight">
-              Let&apos;s Create Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Amazing</span>
+              Let&apos;s Create Something{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                Amazing
+              </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
-              I&apos;m passionate about leveraging technology to solve complex problems and build impactful digital experiences.
-              If you have a project in mind or just want to connect, feel free to reach out!
+              I&apos;m passionate about leveraging technology to solve complex
+              problems and build impactful digital experiences. If you have a
+              project in mind or just want to connect, feel free to reach out!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
               <motion.a
                 href="mailto:vaibhav@example.com"
-                whileHover={{ scale: 1.05, y: -2, boxShadow: "0 10px 20px -5px rgba(59, 130, 246, 0.4)" }} // blue-500
+                whileHover={{
+                  scale: 1.05,
+                  y: -2,
+                  boxShadow: "0 10px 20px -5px rgba(59, 130, 246, 0.4)",
+                }} // blue-500
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-3.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-out flex items-center justify-center gap-3 text-lg"
               >
                 <FiMail className="w-5 h-5" />
                 Get In Touch
               </motion.a>
-              <Link href="/projects"> {/* Assuming you have a projects page */}
+              <Link href="/projects">
+                {" "}
+                {/* Assuming you have a projects page */}
                 <motion.button
-                  whileHover={{ scale: 1.05, y: -2, boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)" }}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -2,
+                    boxShadow:
+                      "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)",
+                  }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full sm:w-auto px-8 py-3.5 border-2 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-all duration-300 ease-out text-lg"
                 >

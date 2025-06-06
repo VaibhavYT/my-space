@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -17,10 +16,6 @@ import {
 } from "react-icons/fi";
 import { projectsData, Project } from "../../data/projectsData";
 import Navbar from "../../components/Navbar";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 export default function ProjectDetailPage({
   params,
@@ -85,7 +80,9 @@ export default function ProjectDetailPage({
     );
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) =>
+        trigger.kill()
+      );
     };
   }, [project]);
 
@@ -244,22 +241,15 @@ export default function ProjectDetailPage({
               Key Features
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
-              {[
-                "Responsive Design",
-                "Modern UI/UX",
-                "Performance Optimized",
-                "Cross-browser Compatible",
-                "SEO Friendly",
-                "Accessible",
-              ].map((feature, index) => (
+              {project.keyFeatures?.map((feature, index) => (
                 <motion.div
                   key={feature}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700"
+                  className="flex items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
                 >
-                  <div className="w-2 h-2 bg-blue-600 rounded-full" />
+                  <div className="flex-shrink-0 w-3 h-3 bg-blue-600 dark:bg-blue-400 rounded-full" />
                   <span className="font-medium text-gray-800 dark:text-gray-200">
                     {feature}
                   </span>
