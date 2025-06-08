@@ -77,7 +77,7 @@ export default function AboutMePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-sky-900/30 text-gray-800 dark:text-gray-200">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
 
       {/* Hero Section */}
@@ -92,8 +92,8 @@ export default function AboutMePage() {
           >
             <Link href="/">
               <motion.button
-                whileHover={{ x: -4, color: "#2563eb" }} // Example: blue-600
-                className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-sky-400 transition-colors duration-300 group"
+                whileHover={{ x: -4, color: "hsl(var(--accent-hsl))" }}
+                className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors duration-300 group"
               >
                 <FiArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
                 Back to Home
@@ -104,7 +104,7 @@ export default function AboutMePage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Profile Image */}
             <div className="about-hero-image relative">
-              <div className="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700">
+              <div className="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-card">
                 <Image
                   src="/project-images/image.jpg"
                   alt="Vaibhav's Profile Picture"
@@ -118,12 +118,12 @@ export default function AboutMePage() {
               </div>
               {/* Decorative elements */}
               <motion.div
-                className="absolute -top-6 -right-6 w-28 h-28 bg-sky-400/10 dark:bg-sky-500/20 rounded-full blur-2xl opacity-70"
+                className="absolute -top-6 -right-6 w-28 h-28 bg-gradient-start/10 rounded-full blur-2xl opacity-70"
                 animate={{ scale: [1, 1.03, 1], rotate: [0, 3, 0] }}
                 transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
               />
               <motion.div
-                className="absolute -bottom-6 -left-6 w-36 h-36 bg-purple-400/10 dark:bg-purple-500/20 rounded-full blur-2xl opacity-70"
+                className="absolute -bottom-6 -left-6 w-36 h-36 bg-gradient-middle/10 rounded-full blur-2xl opacity-70"
                 animate={{ scale: [1, 1.05, 1], rotate: [0, -4, 0] }}
                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
               />
@@ -131,14 +131,14 @@ export default function AboutMePage() {
 
             {/* About Info */}
             <div className="text-center lg:text-left">
-              <h1 className="about-title text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-5 tracking-tight">
+              <h1 className="about-title text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-5 tracking-tight">
                 About{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gradient-start via-gradient-middle to-gradient-end">
                   Vaibhav
                 </span>
               </h1>
 
-              <p className="about-subtitle text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">
+              <p className="about-subtitle text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed">
                 Innovative Software Engineer & Full-Stack Developer
               </p>
 
@@ -149,25 +149,25 @@ export default function AboutMePage() {
                     icon: FiGithub,
                     href: "https://github.com/vaibhav",
                     label: "GitHub",
-                    color: "hover:text-gray-900 dark:hover:text-white",
+                    color: "hover:text-foreground",
                   },
                   {
                     icon: FiLinkedin,
                     href: "https://linkedin.com/in/vaibhav",
                     label: "LinkedIn",
-                    color: "hover:text-blue-700 dark:hover:text-blue-500",
+                    color: "hover:text-blue-500",
                   },
                   {
                     icon: FiTwitter,
                     href: "https://twitter.com/vaibhav",
                     label: "Twitter",
-                    color: "hover:text-sky-500 dark:hover:text-sky-400",
+                    color: "hover:text-sky-500",
                   },
                   {
                     icon: FiMail,
                     href: "mailto:vaibhav@example.com",
                     label: "Email",
-                    color: "hover:text-red-600 dark:hover:text-red-500",
+                    color: "hover:text-red-500",
                   },
                 ].map(({ icon: Icon, href, label, color }) => (
                   <motion.a
@@ -179,7 +179,7 @@ export default function AboutMePage() {
                     whileHover={{ scale: 1.15, y: -3 }}
                     whileTap={{ scale: 0.95 }}
                     // GSAP now handles initial animation for these
-                    className={`w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg flex items-center justify-center text-gray-500 dark:text-gray-400 ${color} transition-colors duration-300 border border-gray-200 dark:border-slate-700`}
+                    className={`w-12 h-12 bg-card rounded-full shadow-lg flex items-center justify-center text-muted-foreground ${color} transition-colors duration-300 border border-border`}
                   >
                     <Icon className="w-6 h-6" />
                   </motion.a>
@@ -195,31 +195,31 @@ export default function AboutMePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
           {/* About Me */}
           <div className="content-section">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-10 tracking-tight text-center lg:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-10 tracking-tight text-center lg:text-left">
               My Story
             </h2>
             <motion.div
-              className="bg-white dark:bg-slate-800/70 rounded-2xl p-8 sm:p-10 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out border border-gray-200 dark:border-slate-700 backdrop-blur-sm"
+              className="bg-card/70 rounded-2xl p-8 sm:p-10 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out border border-border backdrop-blur-sm"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg mb-6">
+              <p className="text-foreground/80 leading-relaxed text-lg mb-6">
                 Hello! I&apos;m Vaibhav, a passionate software engineer with a
                 love for creating digital experiences that make a difference. My
                 journey in technology began during my computer science studies,
                 where I discovered the power of code to solve real-world
                 problems.
               </p>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg mb-6">
+              <p className="text-foreground/80 leading-relaxed text-lg mb-6">
                 Over the years, I&lsquo;ve had the opportunity to work on
                 diverse projects ranging from e-commerce platforms to AI-powered
                 applications. I believe in writing clean, maintainable code and
                 creating user experiences that are both functional and
                 delightful.
               </p>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+              <p className="text-foreground/80 leading-relaxed text-lg">
                 When I&lsquo;m not coding, you can find me exploring new
                 technologies, contributing to open-source projects, diving into
                 AI research, or sharing my knowledge with the developer
@@ -230,7 +230,7 @@ export default function AboutMePage() {
 
           {/* Skills */}
           <div className="content-section">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-10 tracking-tight text-center lg:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-10 tracking-tight text-center lg:text-left">
               Skills & Expertise
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
@@ -316,9 +316,9 @@ export default function AboutMePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white dark:bg-slate-800/70 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out border border-gray-200 dark:border-slate-700 backdrop-blur-sm"
+                  className="bg-card/70 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out border border-border backdrop-blur-sm"
                 >
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-5">
+                  <h3 className="text-xl font-semibold text-card-foreground mb-5">
                     {skillGroup.category}
                   </h3>
                   <div className="flex flex-wrap gap-2">
@@ -329,7 +329,7 @@ export default function AboutMePage() {
                           scale: 1.05,
                           boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
                         }}
-                        className="px-3 py-1.5 bg-sky-100 dark:bg-sky-700/30 text-sky-700 dark:text-sky-300 text-sm rounded-full font-medium cursor-default transition-all duration-200"
+                        className="px-3 py-1.5 bg-accent/20 text-accent text-sm rounded-full font-medium cursor-default transition-all duration-200"
                       >
                         {skill}
                       </motion.span>
@@ -342,7 +342,7 @@ export default function AboutMePage() {
 
           {/* Experience */}
           <div className="content-section">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-10 tracking-tight text-center lg:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-10 tracking-tight text-center lg:text-left">
               Experience
             </h2>
             <div className="space-y-8">
@@ -375,20 +375,20 @@ export default function AboutMePage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.5, delay: index * 0.15 }}
-                  className="bg-white dark:bg-slate-800/70 rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out border border-gray-200 dark:border-slate-700 backdrop-blur-sm"
+                  className="bg-card/70 rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out border border-border backdrop-blur-sm"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <h3 className="text-xl font-semibold text-card-foreground">
                       {exp.role}
                     </h3>
-                    <span className="text-sm text-blue-600 dark:text-sky-400 font-medium mt-1 sm:mt-0">
+                    <span className="text-sm text-accent font-medium mt-1 sm:mt-0">
                       {exp.period}
                     </span>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400 font-medium mb-4">
+                  <p className="text-muted-foreground font-medium mb-4">
                     {exp.company}
                   </p>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base">
+                  <p className="text-foreground/80 leading-relaxed text-base">
                     {exp.description}
                   </p>
                 </motion.div>
@@ -398,13 +398,13 @@ export default function AboutMePage() {
 
           {/* CTA */}
           <div className="content-section text-center pt-10">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white mb-6 tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6 tracking-tight">
               Let&apos;s Create Something{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gradient-start via-gradient-middle to-gradient-end">
                 Amazing
               </span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
               I&apos;m passionate about leveraging technology to solve complex
               problems and build impactful digital experiences. If you have a
               project in mind or just want to connect, feel free to reach out!
@@ -415,10 +415,11 @@ export default function AboutMePage() {
                 whileHover={{
                   scale: 1.05,
                   y: -2,
-                  boxShadow: "0 10px 20px -5px rgba(59, 130, 246, 0.4)",
-                }} // blue-500
+                  boxShadow:
+                    "0 10px 20px -5px hsla(var(--gradient-start-hsl), 0.4)",
+                }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-out flex items-center justify-center gap-3 text-lg"
+                className="px-8 py-3.5 bg-gradient-to-r from-gradient-start via-gradient-middle to-gradient-end text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-out flex items-center justify-center gap-3 text-lg"
               >
                 <FiMail className="w-5 h-5" />
                 Get In Touch
@@ -434,7 +435,7 @@ export default function AboutMePage() {
                       "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)",
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full sm:w-auto px-8 py-3.5 border-2 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-all duration-300 ease-out text-lg"
+                  className="w-full sm:w-auto px-8 py-3.5 border-2 border-border text-foreground font-semibold rounded-lg hover:bg-secondary transition-all duration-300 ease-out text-lg"
                 >
                   View My Work
                 </motion.button>

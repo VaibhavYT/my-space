@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
 
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -23,7 +23,7 @@ export default function Contact() {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "power2.out", delay: 0.2 }}
-            className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto"
+            className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto"
           >
             Have a project in mind? I'd love to hear about it. Send me a message
             and let's discuss how we can bring your ideas to life.
@@ -37,7 +37,7 @@ export default function Contact() {
           >
             <a
               href="mailto:your.email@example.com"
-              className="bg-white text-gray-900 px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-100 transition-colors"
+              className="bg-primary text-primary-foreground px-8 py-4 rounded-full text-lg font-medium hover:bg-primary/90 transition-colors"
             >
               Send me an email
             </a>
@@ -45,7 +45,7 @@ export default function Contact() {
               href="https://linkedin.com/in/yourprofile"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-800 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-700 transition-colors border border-gray-700"
+              className="bg-secondary text-secondary-foreground px-8 py-4 rounded-full text-lg font-medium hover:bg-muted transition-colors border border-border"
             >
               Connect on LinkedIn
             </a>

@@ -2,6 +2,122 @@
 @tailwind components;
 @tailwind utilities;
 
+  @layer base {
+  /*
+  ==========================================================================
+  THEME DEFINITIONS
+  ==========================================================================
+  - Uses CSS variables for theming.
+  - Light theme is the default.
+  - Dark themes are applied via the .dark class and a data-theme attribute.
+  - To add a new theme:
+    1. Add a new theme name to the `darkThemes` array in `app/context/ThemeContext.tsx`.
+    2. Define its color palette below using a `[data-theme='your-theme-name']` selector.
+    3. Ensure you define all the required CSS variables for your new theme.
+  ==========================================================================
+  */
+
+  /* Light Theme (Default) */
+  :root {
+    --background-hsl: 0 0% 98%;
+    --foreground-hsl: 240 10% 3.9%;
+    --card-hsl: 0 0% 100%;
+    --card-foreground-hsl: 240 10% 3.9%;
+    --popover-hsl: 0 0% 100%;
+    --popover-foreground-hsl: 240 10% 3.9%;
+    --primary-hsl: 240 5.9% 10%;
+    --primary-foreground-hsl: 0 0% 98%;
+    --secondary-hsl: 240 4.8% 95.9%;
+    --secondary-foreground-hsl: 240 5.9% 10%;
+    --muted-hsl: 240 4.8% 95.9%;
+    --muted-foreground-hsl: 240 3.8% 46.1%;
+    --accent-hsl: 240 4.8% 95.9%;
+    --accent-foreground-hsl: 240 5.9% 10%;
+    --destructive-hsl: 0 84.2% 60.2%;
+    --destructive-foreground-hsl: 0 0% 98%;
+    --border-hsl: 240 5.9% 90%;
+    --input-hsl: 240 5.9% 90%;
+    --ring-hsl: 240 5.9% 10%;
+    --radius: 0.5rem;
+
+    /* Custom variables */
+    --gradient-start-hsl: 221 83% 53%;
+    /* blue-600 */
+    --gradient-middle-hsl: 262 83% 58%;
+    /* purple-600 */
+    --gradient-end-hsl: 322 84% 57%;
+    /* pink-600 */
+  }
+
+  /* Base Dark Theme (Midnight Glow) */
+  .dark {
+    --background-hsl: 222 47% 11%;
+    --foreground-hsl: 210 40% 98%;
+    --card-hsl: 222 47% 12%;
+    --card-foreground-hsl: 210 40% 98%;
+    --popover-hsl: 222 47% 11%;
+    --popover-foreground-hsl: 210 40% 98%;
+    --primary-hsl: 210 40% 98%;
+    --primary-foreground-hsl: 222 47% 11%;
+    --secondary-hsl: 217 33% 17%;
+    --secondary-foreground-hsl: 210 40% 98%;
+    --muted-hsl: 217 33% 17%;
+    --muted-foreground-hsl: 215 20% 65%;
+    --accent-hsl: 207 90% 54%;
+    --accent-foreground-hsl: 222 47% 11%;
+    --destructive-hsl: 0 63% 31%;
+    --destructive-foreground-hsl: 210 40% 98%;
+    --border-hsl: 217 33% 20%;
+    --input-hsl: 217 33% 17%;
+    --ring-hsl: 210 40% 98%;
+
+    --gradient-start-hsl: 217 91% 60%;
+    --gradient-middle-hsl: 263 91% 67%;
+    --gradient-end-hsl: 322 91% 67%;
+  }
+
+  /* Theme variations */
+  .dark[data-theme="dracula"] {
+    --background-hsl: 237 14% 14%;
+    --foreground-hsl: 210 40% 98%;
+    --card-hsl: 237 14% 16%;
+    --secondary-hsl: 237 14% 20%;
+    --border-hsl: 237 14% 24%;
+    --accent-hsl: 328 100% 74%;
+    --accent-foreground-hsl: 0 0% 0%;
+  }
+
+  .dark[data-theme="emerald-night"] {
+    --background-hsl: 210 31% 10%;
+    --foreground-hsl: 210 40% 98%;
+    --card-hsl: 210 31% 12%;
+    --secondary-hsl: 210 31% 16%;
+    --border-hsl: 210 31% 20%;
+    --accent-hsl: 160 84% 39%;
+    --accent-foreground-hsl: 210 40% 98%;
+  }
+
+  .dark[data-theme="neon-mirage"] {
+    --background-hsl: 0 0% 7%;
+    --foreground-hsl: 210 40% 98%;
+    --card-hsl: 0 0% 9%;
+    --secondary-hsl: 0 0% 13%;
+    --border-hsl: 0 0% 17%;
+    --accent-hsl: 348 77% 49%;
+    --accent-foreground-hsl: 210 40% 98%;
+  }
+
+  .dark[data-theme="cosmic-violet"] {
+    --background-hsl: 240 33% 14%;
+    --foreground-hsl: 210 40% 98%;
+    --card-hsl: 240 33% 16%;
+    --secondary-hsl: 240 33% 20%;
+    --border-hsl: 240 33% 24%;
+    --accent-hsl: 255 91% 66%;
+    --accent-foreground-hsl: 210 40% 98%;
+  }
+}
+
 /* Custom CSS Variables */
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -21,7 +137,10 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
-    --gradient-text: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+    --gradient-text: linear-gradient(135deg,
+        hsl(var(--gradient-start-hsl)) 0%,
+        hsl(var(--gradient-middle-hsl)) 50%,
+        hsl(var(--gradient-end-hsl)) 100%);
   }
 }
 
@@ -36,19 +155,11 @@ html {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  color: hsl(var(--foreground-hsl));
+  background-color: hsl(var(--background-hsl));
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   transition: background-color 0.5s ease, color 0.3s ease;
-}
-
-/* Override for dark theme */
-.dark-theme {
-  background: #030712 !important;
-  color: #f9fafb !important;
 }
 
 /* Custom utility classes */
@@ -72,14 +183,14 @@ body {
   .glass-effect {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(255, 255, 255, 0.75);
-    border: 1px solid rgba(209, 213, 219, 0.3);
+    background-color: hsla(var(--card-hsl), 0.75);
+    border: 1px solid hsla(var(--border-hsl), 0.3);
     transition: all 0.3s ease;
   }
 
   .dark .glass-effect {
-    background-color: rgba(17, 24, 39, 0.75);
-    border: 1px solid rgba(75, 85, 99, 0.3);
+    background-color: hsla(var(--card-hsl), 0.75);
+    border: 1px solid hsla(var(--border-hsl), 0.3);
   }
 
   .gradient-text {

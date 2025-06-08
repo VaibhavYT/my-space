@@ -25,6 +25,7 @@ Expectations for the Codebase:
 Next.js 15 & React 19: Full utilization of their latest features and best practices.
 Tailwind CSS: Expert application for responsive, atomic styling. No !important unless absolutely unavoidable.
 GSAP & Framer Motion: Seamless, performant, and artistic integration.
+Shadcn: For Reusable Componenet if required
 Modularity: Small, focused, reusable components.
 Readability: Code that a peer could pick up and understand instantly.
 Production Readiness: Error handling, sensible defaults, and robust state management.

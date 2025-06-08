@@ -104,14 +104,14 @@ const ProjectDetailModal = ({
               duration: 0.4,
             }}
             onClick={(e) => e.stopPropagation()}
-            className="relative bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            className="relative bg-card text-card-foreground rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
           >
             {/* Close Button */}
             <motion.button
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
               onClick={onClose}
-              className="absolute top-6 right-6 z-10 w-10 h-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors shadow-lg"
+              className="absolute top-6 right-6 z-10 w-10 h-10 bg-secondary/80 backdrop-blur-sm rounded-full flex items-center justify-center text-secondary-foreground hover:bg-muted transition-colors shadow-lg"
             >
               <FiX size={20} />
             </motion.button>
@@ -135,13 +135,13 @@ const ProjectDetailModal = ({
 
               <div className="p-8">
                 {/* Project Title */}
-                <h2 className="modal-title text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="modal-title text-3xl md:text-4xl font-bold text-card-foreground mb-4">
                   {project.title}
                 </h2>
 
                 {/* Tech Stack */}
                 <div className="modal-tech-stack mb-6">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                  <h3 className="text-lg font-semibold text-card-foreground mb-3">
                     Technologies Used
                   </h3>
                   <div className="flex flex-wrap gap-3">
@@ -151,7 +151,7 @@ const ProjectDetailModal = ({
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.1 }}
-                        className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full font-medium border border-blue-200 dark:border-blue-700"
+                        className="px-4 py-2 bg-accent/10 text-accent rounded-full font-medium border border-accent/20"
                       >
                         {tech}
                       </motion.span>
@@ -161,10 +161,10 @@ const ProjectDetailModal = ({
 
                 {/* Short Description */}
                 <div className="modal-description mb-6">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                  <h3 className="text-lg font-semibold text-card-foreground mb-3">
                     Project Overview
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-base">
+                  <p className="text-muted-foreground leading-relaxed text-base">
                     {project.shortDescription}
                   </p>
                 </div>
@@ -175,7 +175,7 @@ const ProjectDetailModal = ({
                     <motion.button
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group"
+                      className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-gradient-start to-gradient-end text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group"
                     >
                       View Project Details
                       <motion.div
@@ -200,7 +200,7 @@ const ProjectDetailModal = ({
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex-1 sm:flex-none px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2"
+                        className="flex-1 sm:flex-none px-6 py-3 border-2 border-border text-foreground font-semibold rounded-xl hover:bg-secondary transition-all duration-300 flex items-center justify-center gap-2"
                       >
                         <FiGithub className="w-5 h-5" />
                         GitHub
@@ -214,7 +214,7 @@ const ProjectDetailModal = ({
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex-1 sm:flex-none px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2"
+                        className="flex-1 sm:flex-none px-6 py-3 border-2 border-border text-foreground font-semibold rounded-xl hover:bg-secondary transition-all duration-300 flex items-center justify-center gap-2"
                       >
                         <FiExternalLink className="w-5 h-5" />
                         Live Demo

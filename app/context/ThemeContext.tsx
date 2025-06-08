@@ -1,11 +1,34 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 
-type Theme = "light" | "dark";
+// ============================================================================
+// THEME CONFIGURATION
+// To add a new theme, add its name here. Then, define its color palette
+// in `app/globals.css` using a `[data-theme='your-theme-name']` selector.
+// ============================================================================
+export const darkThemes = [
+  "midnight-glow",
+  "dracula",
+  "emerald-night",
+  "neon-mirage",
+  "cosmic-violet",
+] as const;
+
+export type ThemeMode = "light" | "dark";
+export type DarkThemeName = (typeof darkThemes)[number];
 
 interface ThemeContextType {
-  theme: Theme;
+  mode: ThemeMode;
+  setMode: (mode: ThemeMode) => void;
+  theme: DarkThemeName;
+  setTheme: (theme: DarkThemeName) => void;
   toggleTheme: () => void;
   isLoading: boolean;
 }
@@ -13,32 +36,73 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [mode, setModeState] = useState<ThemeMode>("light");
+  const [theme, setThemeState] = useState<DarkThemeName>("midnight-glow");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Get theme from localStorage or system preference
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-      .matches
-      ? "dark"
-      : "light";
-    const initialTheme = savedTheme || systemTheme;
+    // Get theme from localStorage
+    const savedMode = localStorage.getItem("theme-mode") as ThemeMode;
+    const savedTheme = localStorage.getItem("theme-name") as DarkThemeName;
 
-    setTheme(initialTheme);
-    document.documentElement.classList.toggle("dark", initialTheme === "dark");
+    // System preference for initial mode if nothing is saved
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const initialMode = savedMode || (systemPrefersDark ? "dark" : "light");
+    const initialTheme =
+      savedTheme && darkThemes.includes(savedTheme)
+        ? savedTheme
+        : "midnight-glow";
+
+    setModeState(initialMode);
+    setThemeState(initialTheme);
+
+    // Apply classes to the documentElement
+    document.documentElement.classList.toggle("dark", initialMode === "dark");
+    if (initialMode === "dark") {
+      document.documentElement.setAttribute("data-theme", initialTheme);
+    }
+
     setIsLoading(false);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-  };
+  const setMode = useCallback((newMode: ThemeMode) => {
+    setModeState(newMode);
+    localStorage.setItem("theme-mode", newMode);
+    document.documentElement.classList.toggle("dark", newMode === "dark");
+    // When switching to dark mode, ensure a theme is set.
+    // When switching to light, remove the data-theme attribute.
+    if (newMode === "dark") {
+      const currentTheme = localStorage.getItem("theme-name") as DarkThemeName;
+      document.documentElement.setAttribute(
+        "data-theme",
+        currentTheme || "midnight-glow"
+      );
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }, []);
+
+  const setTheme = useCallback(
+    (newTheme: DarkThemeName) => {
+      setThemeState(newTheme);
+      localStorage.setItem("theme-name", newTheme);
+      if (mode === "dark") {
+        document.documentElement.setAttribute("data-theme", newTheme);
+      }
+    },
+    [mode]
+  );
+
+  const toggleTheme = useCallback(() => {
+    setMode(mode === "light" ? "dark" : "light");
+  }, [mode, setMode]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isLoading }}>
+    <ThemeContext.Provider
+      value={{ mode, setMode, theme, setTheme, toggleTheme, isLoading }}
+    >
       {children}
     </ThemeContext.Provider>
   );

@@ -7,7 +7,7 @@ import { useTheme } from "../context/ThemeContext";
 import { FiSun, FiMoon } from "react-icons/fi";
 
 const ThemeToggle = () => {
-  const { theme, toggleTheme, isLoading } = useTheme();
+  const { mode, toggleTheme, isLoading } = useTheme();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
 
@@ -70,7 +70,7 @@ const ThemeToggle = () => {
 
   if (isLoading) {
     return (
-      <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+      <div className="w-12 h-12 rounded-full bg-secondary animate-pulse" />
     );
   }
 
@@ -90,7 +90,7 @@ const ThemeToggle = () => {
       <div
         ref={backgroundRef}
         className={`absolute inset-0 rounded-full blur-lg transition-colors duration-500 ${
-          theme === "dark" ? "bg-blue-400/30" : "bg-yellow-400/30"
+          mode === "dark" ? "bg-accent/30" : "bg-yellow-400/30"
         }`}
       />
 
@@ -100,16 +100,16 @@ const ThemeToggle = () => {
         onClick={handleThemeToggle}
         whileTap={{ scale: 0.9 }}
         className={`relative w-12 h-12 rounded-full border-2 backdrop-blur-sm transition-all duration-500 shadow-lg overflow-hidden ${
-          theme === "dark"
-            ? "bg-gray-800/80 border-blue-400/50 hover:border-blue-400"
-            : "bg-white/80 border-yellow-400/50 hover:border-yellow-400"
+          mode === "dark"
+            ? "bg-secondary/80 border-accent/50 hover:border-accent"
+            : "bg-card/80 border-yellow-400/50 hover:border-yellow-400"
         }`}
       >
         {/* Rotating background gradient */}
         <motion.div
           className={`absolute inset-0 rounded-full transition-opacity duration-500 ${
-            theme === "dark"
-              ? "bg-gradient-to-br from-blue-600/20 to-purple-600/20"
+            mode === "dark"
+              ? "bg-gradient-to-br from-accent/20 to-purple-600/20"
               : "bg-gradient-to-br from-yellow-400/20 to-orange-400/20"
           }`}
           animate={{ rotate: 360 }}
@@ -119,7 +119,7 @@ const ThemeToggle = () => {
         {/* Icon container */}
         <div className="relative z-10 flex items-center justify-center h-full">
           <AnimatePresence mode="wait">
-            {theme === "dark" ? (
+            {mode === "dark" ? (
               <motion.div
                 key="moon"
                 initial={{ rotate: -90, opacity: 0 }}
@@ -127,7 +127,7 @@ const ThemeToggle = () => {
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <FiMoon className="w-5 h-5 text-blue-400" />
+                <FiMoon className="w-5 h-5 text-accent" />
               </motion.div>
             ) : (
               <motion.div
@@ -149,7 +149,7 @@ const ThemeToggle = () => {
             <motion.div
               key={i}
               className={`absolute w-1 h-1 rounded-full ${
-                theme === "dark" ? "bg-blue-400" : "bg-yellow-400"
+                mode === "dark" ? "bg-accent" : "bg-yellow-400"
               }`}
               style={{
                 top: `${20 + Math.sin((i * 60 * Math.PI) / 180) * 15}%`,

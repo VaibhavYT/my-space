@@ -80,7 +80,7 @@ export default function Home() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
 
       {/* Hero Section */}
@@ -88,12 +88,12 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8">
             Assorted projects for{" "}
-            <span className="text-gray-400">
+            <span className="text-muted-foreground">
               frontend developers and web designers.
             </span>
           </h1>
 
-          <p className="hero-subtitle text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-16">
+          <p className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-16">
             Explore curated and handpicked projects that showcase modern web
             development techniques and enhance your understanding of full-stack
             applications.
@@ -107,16 +107,16 @@ export default function Home() {
                 onClick={() => setActiveCategory(category.name)}
                 className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeCategory === category.name
-                    ? "bg-white text-gray-900"
-                    : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground hover:bg-muted"
                 }`}
               >
                 {category.name}{" "}
                 <span
                   className={`ml-1 ${
                     activeCategory === category.name
-                      ? "text-gray-600"
-                      : "text-gray-500"
+                      ? "text-primary-foreground/70"
+                      : "text-muted-foreground"
                   }`}
                 >
                   {category.count}
@@ -148,7 +148,7 @@ export default function Home() {
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-gray-500 text-lg">
+              <p className="text-muted-foreground text-lg">
                 No projects found in this category.
               </p>
             </div>

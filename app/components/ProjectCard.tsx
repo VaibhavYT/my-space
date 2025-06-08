@@ -35,7 +35,7 @@ const ProjectCard = ({ project, onCardClick, index }: ProjectCardProps) => {
       whileHover={{ y: -8, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
       whileTap={{ scale: 0.98 }}
       onClick={() => onCardClick(project)}
-      className="group cursor-pointer bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-200/50 dark:border-gray-700/50 will-change-transform"
+      className="group cursor-pointer bg-card text-card-foreground rounded-2xl overflow-hidden shadow-lg border will-change-transform"
     >
       {/* Project Image */}
       <div className="relative h-48 overflow-hidden">
@@ -59,11 +59,11 @@ const ProjectCard = ({ project, onCardClick, index }: ProjectCardProps) => {
 
       {/* Project Content */}
       <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:gradient-text transition-all duration-300">
+        <h3 className="text-xl font-bold text-card-foreground mb-2 group-hover:gradient-text transition-all duration-300">
           {project.title}
         </h3>
 
-        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
           {project.shortDescription}
         </p>
 
@@ -72,13 +72,13 @@ const ProjectCard = ({ project, onCardClick, index }: ProjectCardProps) => {
           {project.techStack.slice(0, 3).map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs rounded-full font-medium"
+              className="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full font-medium"
             >
               {tech}
             </span>
           ))}
           {project.techStack.length > 3 && (
-            <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs rounded-full font-medium">
+            <span className="px-3 py-1 bg-muted/50 text-muted-foreground text-xs rounded-full font-medium">
               +{project.techStack.length - 3}
             </span>
           )}
@@ -86,11 +86,11 @@ const ProjectCard = ({ project, onCardClick, index }: ProjectCardProps) => {
 
         {/* View Project Indicator */}
         <div className="flex items-center justify-between">
-          <span className="text-sm text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
+          <span className="text-sm text-accent font-medium group-hover:text-accent/80 transition-colors">
             View Details
           </span>
           <motion.div
-            className="w-6 h-6 text-blue-600 dark:text-blue-400"
+            className="w-6 h-6 text-accent"
             initial={{ x: 0 }}
             whileHover={{ x: 4 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
